@@ -19,9 +19,8 @@ async def check_boards_1(call:CallbackQuery,state:FSMContext):
     boards=data_state['boards']
     if boards[data]=="-":
         await state.set_state("other")
-        boards[data]=data_state["turn"]
-
         turn="X"
+        boards[data]=turn
         if is_winner(board=boards,player=turn):
             await call.message.edit_text(f'🤵 Win {turn} 🏆',reply_markup=boards_kb(boards))
             await call.answer(f'🤵 Win {turn} 🏆')
@@ -62,7 +61,10 @@ async def restart_game(call:CallbackQuery,state:FSMContext):
     if call.data=="restart":
         if turn=="O":
             boards[random.randint(0,8)]="O"
-        await call.message.edit_text(f"Turn {turn}",reply_markup=boards_kb(boards))
+            text=f"🤵 Turn X"
+        else:
+            text=f"🤵 Turn X"
+        await call.message.edit_text(text,reply_markup=boards_kb(boards))
         await state.update_data(boards=boards,turn="X")
         await state.set_state("check_state_1")
     else:

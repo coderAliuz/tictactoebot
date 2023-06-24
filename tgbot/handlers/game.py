@@ -4,7 +4,7 @@ from aiogram.dispatcher import FSMContext
 from tgbot.keyboards import check_type
 
 async def started(message:Message,state:FSMContext):
-    await message.answer(f"Hello {message.chat.full_name}\n"
+    await message.answer(f"🖐 Hello {message.chat.full_name}\n"
                          f"/game - start game\n/help - help!")
     await state.finish()
 
